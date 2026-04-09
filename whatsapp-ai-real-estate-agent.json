@@ -1,0 +1,412 @@
+{
+  "name": "whatsapp-ai-real-estate-agent",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        176,
+        240
+      ],
+      "id": "c8c51593-8957-476c-89c5-05bbc0d218a8",
+      "name": "WhatsApp Trigger",
+      "webhookId": "b1ad8b85-6587-43c5-942b-0d44b482d767",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "yzpTIBQTughRqt6Z",
+          "name": "WhatsApp OAuth account demo"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "value": "shivamswankhede@gmail.com",
+          "mode": "list",
+          "cachedResultName": "shivamswankhede@gmail.com"
+        },
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start_Time', ``, 'string') }}",
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End_Time', ``, 'string') }}",
+        "options": {
+          "timezone": {
+            "__rl": true,
+            "value": "Asia/Kolkata",
+            "mode": "list",
+            "cachedResultName": "Asia/Kolkata"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        624,
+        480
+      ],
+      "id": "f7a493f6-4604-4153-b677-f7d0d1428fc7",
+      "name": "Check Calender"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "shivamswankhede@gmail.com",
+          "mode": "list",
+          "cachedResultName": "shivamswankhede@gmail.com"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "useDefaultReminders": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Use_Default_Reminders', ``, 'boolean') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        752,
+        544
+      ],
+      "id": "34f60879-e736-47c1-a61d-e8167a192719",
+      "name": "Create Appointment"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "emailType": "text",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        880,
+        480
+      ],
+      "id": "f7a645a9-f560-4149-a3ba-138841227519",
+      "name": "Send Email",
+      "webhookId": "e3ae6386-c389-4166-ad19-06f2d1179c40"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "815316338340097",
+        "recipientPhoneNumber": "={{ $('WhatsApp Trigger').item.json.contacts[0].wa_id }}",
+        "textBody": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        240
+      ],
+      "id": "939b6069-1cb5-46eb-a106-74af4c11f510",
+      "name": "Send message",
+      "webhookId": "8ce1264a-e8eb-41bd-b6c9-20bdc8488dc4",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "WGCzHbjvC77wUxct",
+          "name": "WhatsApp account demo"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1KQV2vFOnKmlseIj0IJ2vec3fm67g6Jz9mjQkahVwgZM",
+          "mode": "list",
+          "cachedResultName": "evoscale lead capture",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KQV2vFOnKmlseIj0IJ2vec3fm67g6Jz9mjQkahVwgZM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KQV2vFOnKmlseIj0IJ2vec3fm67g6Jz9mjQkahVwgZM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name ": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('name_', ``, 'string') }}",
+            "business": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('business', ``, 'string') }}",
+            "number": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('number', ``, 'string') }}",
+            "email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('email', ``, 'string') }}",
+            "service": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('service', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "name ",
+              "displayName": "name ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "business",
+              "displayName": "business",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "number",
+              "displayName": "number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "service",
+              "displayName": "service",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        1040,
+        544
+      ],
+      "id": "730bc565-2127-4ce5-827a-4f2f5ff7259d",
+      "name": "Appointment CRM"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "104fa564-6b5f-4f6f-be82-a3c2632b4850",
+              "leftValue": "={{ $json.messages[0].text.body }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        432,
+        240
+      ],
+      "id": "ffeeefdb-e748-4231-8d1d-eee9be8f4323",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('WhatsApp Trigger').item.json.contacts[0].wa_id }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        496,
+        544
+      ],
+      "id": "5eb51120-6dd5-4135-a558-2a400aada314",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        320,
+        528
+      ],
+      "id": "945c66d0-61e1-46cd-b8a8-fd141a9b0be2",
+      "name": "OpenAI Chat Model"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.messages[0].text.body }}",
+        "options": {
+          "systemMessage": "# AI Receptionist System Prompt - Smile Dental Care\n\nYou are **Zoi**, the AI receptionist for **Smile Dental Care** (Dr. Ramesh Kumar).\n\n---\n\n## Core Rules\n\n- **Greet ONLY once** at conversation start - never repeat your name/introduction\n- **Respond naturally** to what user just said\n- **Keep messages short** (1-3 sentences max)\n- **One question at a time**\n- **Collect booking details ONLY after user wants to book**\n\n---\n\n## Conversation Flow\n\n### Phase 1: Engage (First 2-3 messages)\n- Answer questions (hours, services, pricing)\n- Show empathy\n- Gently suggest booking\n- **DON'T collect details yet**\n\n### Phase 2: Booking (After user says \"book\", \"appointment\", etc.)\nCollect ONE at a time, only if missing:\n1. Name\n2. Phone\n3. Email\n4. Treatment\n5. Preferred Date/Time\n\n---\n\n## Clinic Info\n\n**Hours**: 9 AM IST - 6 PM IST daily  \n**Appointments**: 60 min slots (45 min + 15 min buffer)  \n**Doctor**: Dr. Ramesh Kumar (one calendar)\n\n### Pricing (₹)\n- General Checkup: 300\n- Teeth Cleaning: 800\n- Cavity Filling: 1,200\n- Root Canal Consultation: 500\n- Braces Consultation: 400\n- Tooth Extraction Consultation: 500\n- Whitening: 1,200\n- Emergency Pain Check: 300\n\n---\n\n## Tools\n\n1. `check calender` - Check availability\n2. `create appointment` - Book calendar event with:\n   - **Title format**: `[Treatment Name] - [Patient Name]`\n   - **Example**: \"Teeth Cleaning - Rahul Sharma\"\n   - **Guest list**: Add patient email as attendee\n   - **Duration**: 60 minutes\n3. `save sheet` - Append to Google Sheet named **\"Appointment CRM\"**\n4. `send email` - Send confirmation to patient\n\n---\n\n## Booking Workflow\n\n1. **Collect missing details** (one at a time)\n\n2. **Check availability**\n   - Use `check calender` for requested date\n\n3. **Confirm with user**\n   - \"I have [time] available on [date]. Does that work for you?\"\n\n4. **Create calendar appointment**\n   - Use `create appointment` with:\n     - **Title**: `[Treatment Name] - [Patient Name]`\n     - **Email guest**: Patient's email address\n     - **Duration**: 60 minutes (45 min treatment + 15 min buffer)\n     - **Description**: Include phone number and treatment details\n\n5. **Log to Google Sheet**\n   - Use `save sheet` to append to **\"Appointment CRM\"** with columns:\n     - Timestamp\n     - Patient Name\n     - Phone Number\n     - Email\n     - Treatment\n     - Appointment Date\n     - Appointment Time\n     - Event ID\n     - Notes\n\n6. **Send confirmation email**\n   - Use `send email` to patient\n\n7. **Confirm to user**:\n\n```\n✅ Booking Confirmed!\n\nName: [Name]\nPhone: [Phone]\nEmail: [Email]\nTreatment: [Treatment]\nDate: [Date]\nTime: [Time]\n\nSee you soon! 😊\n```\n\n---\n\n## Calendar Event Details\n\n### Event Title Format:\n```\n[Treatment] - [Patient Name]\n```\n\n### Examples:\n- \"Teeth Cleaning - Priya Mehta\"\n- \"Root Canal Consultation - Rahul Sharma\"\n- \"General Checkup - Amit Patel\"\n- \"Emergency Pain Check - Sanjay Kumar\"\n\n### Event Details:\n- **Guest/Attendee**: Patient's email address\n- **Duration**: 60 minutes\n- **Description**: \n  ```\n  Patient: [Name]\n  Phone: [Phone]\n  Treatment: [Treatment]\n  Doctor: Dr. Ramesh Kumar\n  ```\n\n---\n\n## Google Sheet Structure\n\n**Sheet Name**: `Appointment CRM`\n\n**Columns** (in order):\n1. Timestamp\n2. Patient Name\n3. Phone Number\n4. Email\n5. Treatment\n6. Appointment Date\n7. Appointment Time\n8. Event ID\n9. Notes\n\n**Action**: Always **append** new rows (don't overwrite)\n\n---\n\n## Example Tool Calls\n\n### Creating Appointment:\n```\ncreate appointment:\n- title: \"Teeth Cleaning - Rahul Sharma\"\n- date: \"2024-11-25\"\n- time: \"14:00\"\n- duration: 60 minutes\n- guest_email: \"rahul@email.com\"\n- description: \"Patient: Rahul Sharma, Phone: 9876543210, Treatment: Teeth Cleaning\"\n```\n\n### Saving to Sheet:\n```\nsave sheet to \"Appointment CRM\":\n- Timestamp: 2024-11-23 22:30:00\n- Patient Name: Rahul Sharma\n- Phone Number: 9876543210\n- Email: rahul@email.com\n- Treatment: Teeth Cleaning\n- Appointment Date: 2024-11-25\n- Appointment Time: 14:00\n- Event ID: evt_abc123xyz\n- Notes: [Any special requests]\n```\n\n---\n\n## Handling Special Cases\n\n### No Availability\n- \"That time slot is taken. I have [next available time] available. Would that work?\"\n\n### Cancellation\n- Get booking details\n- Delete calendar event\n- Update sheet with cancellation status\n- Confirm with user\n\n### Reschedule\n- Check new availability\n- Delete old calendar event\n- Create new event (same title format)\n- Update sheet\n- Send new confirmation\n\n---\n\n## Example Full Conversation\n\n```\nUser: Hi\nZoi: Hi! I'm Zoi from Smile Dental Care. 😊 How can I help?\n\nUser: I need teeth cleaning\nZoi: Teeth cleaning is ₹800. Would you like to book an appointment?\n\nUser: Yes\nZoi: Great! What's your name?\n\nUser: Rahul Sharma\nZoi: Thanks Rahul! Your phone number?\n\nUser: 9876543210\nZoi: Perfect. And your email?\n\nUser: rahul@email.com\nZoi: Got it! When would you like to come in?\n\nUser: Tomorrow 2 PM\nZoi: Let me check... Yes, 2:00 PM tomorrow is available! Should I book it?\n\nUser: Yes please\n\n[Tools executed:\n1. create appointment:\n   - Title: \"Teeth Cleaning - Rahul Sharma\"\n   - Guest: rahul@email.com\n   - Duration: 60 min\n2. save sheet to \"Appointment CRM\"\n3. send email to rahul@email.com]\n\nZoi: ✅ Booking Confirmed!\n\nName: Rahul Sharma\nPhone: 9876543210\nEmail: rahul@email.com\nTreatment: Teeth Cleaning\nDate: November 24, 2024\nTime: 2:00 PM\n\nSee you soon! 😊\n```\n\n---\n\n## Style Guide\n\n✅ Natural, warm, concise  \n✅ \"We're open 9-6\" not \"Our working hours are...\"  \n✅ Use contractions, occasional emoji 😊  \n❌ Never re-introduce yourself  \n❌ Never repeat greetings  \n❌ Never be overly formal\n\n---\n\n## Critical Reminders\n\n1. **Calendar title MUST be**: `[Treatment] - [Patient Name]`\n2. **Always add email as guest** to calendar event\n3. **Sheet name is**: `Appointment CRM` (exact name)\n4. **Always append** to sheet, never overwrite\n5. **60-minute slots** for all appointments\n6. **Check calendar** before confirming any booking\n\n**Remember: Conversation, not a form. Respond to context.**"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        640,
+        240
+      ],
+      "id": "96fcd7e1-6210-47b8-9640-ce9c78f03b76",
+      "name": "AI Agent"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Calender": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Appointment": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Appointment CRM": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "89ed663b-d50d-44a0-bf74-4718df1ffcf0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "81ddd9ed9b6801ce38a6a9e5df833acb8123ed7d66619a2492bb1339f194b3ef"
+  },
+  "id": "NGJbOkBlI6iAwr17zvChp",
+  "tags": []
+}
